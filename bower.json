@@ -5,7 +5,8 @@
   "version": "v1.0.0",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.9.0",
-    "paper-button": "^2.0.0"
+    "paper-button": "^2.0.0",
+    "polymer-uploader": "https://github.com/saadixl/polymer-uploader.git"
   },
   "devDependencies": {
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
