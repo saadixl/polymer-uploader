@@ -1,0 +1,35 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-uploader/polymer-uploader.html">
+
+<dom-module id="demo-comp">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <polymer-uploader
+      multiple
+      success={{success}}
+      uploading={{uploading}}
+      method="POST"
+      url="http://localhost:3000/upload">
+    </polymer-uploader>
+    <template is="dom-if" if="{{uploading}}">
+      <p>Uploading...</p>
+    </template>
+    <template is="dom-if" if="{{success}}">
+      <p>Upload completed!</p>
+    </template>
+  </template>
+  <script>
+    Polymer({
+      is: 'demo-comp',
+      properties: {
+        success: {
+          type: Boolean
+        }
+      }
+    });
+  </script>
+</dom-module>

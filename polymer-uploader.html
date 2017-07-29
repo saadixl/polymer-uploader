@@ -1,0 +1,114 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="polymer-uploader">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      paper-button.uploader-button {
+        text-transform: none;
+        background-color: orange;
+        color: #fff;
+      }
+
+      .uploader {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+      }
+
+      .uploader-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+        opacity: 0;
+        cursor: pointer;
+      }
+    </style>
+    <input class="uploader-input" type="file" multiple$="{{multiple}}"/>
+    <template is="dom-if" if="{{!uploading}}">
+      <paper-button class="uploader-button">Choose files</paper-button>
+    </template>
+    <template is="dom-if" if="{{uploading}}">
+      <paper-button class="uploader-button disabled">Uploading...</paper-button>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'polymer-uploader',
+
+      properties: {
+          multiple: {
+            type: Boolean
+          },
+          uploading: {
+            type: Boolean,
+            value: false,
+            notify: true
+          },
+          url: {
+            type: String
+          },
+          method: {
+            type: String
+          },
+          fileName: {
+            type: String,
+            value: ''
+          },
+          success: {
+            type: Boolean,
+            notify: true
+          }
+      },
+
+      attached: function() {
+        this.addClickListener();
+      },
+
+      addClickListener() {
+        var self = this;
+        document.querySelector('input.uploader-input').addEventListener('change', function(event) {
+          self.processFile();
+        });
+      },
+
+      processFile: function() {
+        this.uploading = true;
+        this.success = false;
+        var files = document.querySelector('input.uploader-input').files;
+        if(files.length > 0) {
+          var formData = new FormData();
+          for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            formData.append('uploads[]', file, file.name);
+          }
+            var request = new XMLHttpRequest();
+          request.open(this.method, this.url);
+          request.send(formData);
+          request.addEventListener("load", this.uploadComplete.bind(this));
+        }
+      },
+
+      uploadComplete: function() {
+        this.clearUpload();
+        this.uploading = false;
+        this.success = true;
+      },
+
+      clearUpload: function() {
+        document.querySelector('input.uploader-input').value = '';
+        this.fileName = '';
+      }
+
+    });
+  </script>
+</dom-module>
