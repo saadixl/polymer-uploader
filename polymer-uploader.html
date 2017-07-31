@@ -31,7 +31,7 @@
         cursor: pointer;
       }
     </style>
-    <input class="uploader-input" type="file" multiple$="{{multiple}}"/>
+    <input class="uploader-input" id="uploaderinput" type="file" multiple$="{{multiple}}"/>
     <template is="dom-if" if="{{!uploading}}">
       <paper-button class="uploader-button">Choose files</paper-button>
     </template>
@@ -76,7 +76,7 @@
 
       addClickListener() {
         var self = this;
-        document.querySelector('input.uploader-input').addEventListener('change', function(event) {
+        this.$.uploaderinput.addEventListener('change', function(event) {
           self.processFile();
         });
       },
@@ -84,7 +84,7 @@
       processFile: function() {
         this.uploading = true;
         this.success = false;
-        var files = document.querySelector('input.uploader-input').files;
+        var files = this.$.uploaderinput.files;
         if(files.length > 0) {
           var formData = new FormData();
           for (var i = 0; i < files.length; i++) {
@@ -105,7 +105,7 @@
       },
 
       clearUpload: function() {
-        document.querySelector('input.uploader-input').value = '';
+        this.$.uploaderinput.value = '';
         this.fileName = '';
       }
 

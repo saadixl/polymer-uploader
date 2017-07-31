@@ -2,7 +2,7 @@
   "name": "polymer-uploader",
   "description": "File uploader component for Polymer",
   "main": "polymer-uploader.html",
-  "version": "v1.0.0",
+  "version": "v1.1.0",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.9.0",
     "paper-button": "^2.0.0",
