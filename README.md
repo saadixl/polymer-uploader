@@ -37,6 +37,12 @@ Listen to upload events:
 </polymer-uploader>
 ```
 
+Use custom CSS variables for styling the uploader button:
+- ```--polymer-upload-button-background```, for setting button background.
+- ```--polymer-upload-button-color```, for setting button font color.
+- ```--polymer-upload-button-custom```, for applying custom CSS on the button.
+
+
 ## How to run the demo?
 - Clone the repo
 - Navigate to the repo using terminal
